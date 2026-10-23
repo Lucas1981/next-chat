@@ -1,0 +1,45 @@
+$border: 1px solid var(--border);
+
+.wrapperOuter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapperInner {
+  width: 600px;
+}
+
+.chatBox {
+  width: 600px;
+  height: 600px;
+  overflow: scroll;
+  border: $border;
+  border-radius: 4px;
+
+  .chatBoxRow {
+    width: 100%;
+    display: flex;
+
+    &.user {
+      justify-content: flex-end;
+    }
+
+    &.assistant {
+      justify-content: flex-start;
+    }
+
+    .message {
+      margin: 8px 12px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: $border;
+      width: 300px;
+      display: block;
+    }
+  }
+}
+
+.inputs {
+  max-width: 600px;
+}
