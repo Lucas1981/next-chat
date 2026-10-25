@@ -107,7 +107,7 @@ export default function Chat() {
   return (
     <main className={styles.wrapperOuter}>
       <div className={styles.wrapperInner}>
-        <h1>Chat</h1>
+        <h1>Chat about movie plots</h1>
         <div className={styles.chatBox} ref={chatBoxRef}>
           {messages.map((message, idx) => (
             <div
