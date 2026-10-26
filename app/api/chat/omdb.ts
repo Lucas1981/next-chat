@@ -41,7 +41,7 @@ export const getPlot = async (movieTitle: string): Promise<string | null> => {
     console.log("Error retrieving plot from movie");
     console.log(e);
 
-    logInfo("omdb.error", {
+    logError("omdb.error", {
       requestId,
       title: trimmed,
       ms: Date.now() - started,
