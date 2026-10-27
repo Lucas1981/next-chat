@@ -1,7 +1,56 @@
 import axios from "axios";
 import { logInfo, logError } from "@/lib/logger";
 
-export const getPlot = async (movieTitle: string): Promise<string | null> => {
+export type OMDBResponse = {
+  imdbID: string;
+  Title: string;
+  Plot: string;
+};
+
+export const getMovieDetailsById = async (
+  imdbID: string,
+  plotType = "long",
+): Promise<OMDBResponse | null> => {
+  if (!imdbID) {
+    return null;
+  }
+
+  const apikey = process.env["OMDB_API_KEY"];
+
+  if (!apikey) {
+    return null;
+  }
+
+  try {
+    const { data } = await axios.get("http://www.omdbapi.com/", {
+      params: {
+        apikey,
+        i: imdbID,
+        plot: plotType,
+      },
+    });
+
+    if (data.Response !== "True" || typeof data.Plot !== "string") {
+      return null;
+    }
+
+    console.log(
+      `Full data retrieved for movie ${data?.Title}: ${JSON.stringify(data)}`,
+    );
+
+    return data;
+  } catch (e) {
+    console.log("Error retrieving plot from movie");
+    console.log(e);
+  }
+
+  return null;
+};
+
+export const getPlotByTitle = async (
+  movieTitle: string,
+  plotType = "short",
+): Promise<string | null> => {
   const trimmed = movieTitle?.trim();
 
   if (trimmed === "") {
@@ -21,7 +70,7 @@ export const getPlot = async (movieTitle: string): Promise<string | null> => {
       params: {
         apikey,
         t: trimmed,
-        plot: "short",
+        plot: plotType,
       },
     });
 

@@ -1,5 +1,5 @@
 import type OpenAI from "openai";
-import { getPlot } from "./omdb";
+import { getPlotByTitle } from "./omdb";
 
 export const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
@@ -43,6 +43,6 @@ export const runTool = async (
     return "The tool arguments were not valid JSON.";
   }
 
-  const plot = await getPlot(movieTitle);
+  const plot = await getPlotByTitle(movieTitle);
   return plot || `No plot was found for "${movieTitle}"`;
 };
