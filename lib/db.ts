@@ -1,3 +1,5 @@
+// Info on the CRUD methods for Prisma: https://www.prisma.io/docs/orm/fundamentals/reading-data
+
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "./generated/prisma/client";
 

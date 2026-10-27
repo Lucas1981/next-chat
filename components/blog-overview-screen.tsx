@@ -1,29 +1,20 @@
 import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
+import { getPosts } from "@/lib/posts";
 
 type BlogPostType = {
   id: string;
   title: string;
 };
 
-async function getBlogPosts(): Promise<BlogPostType[]> {
-  const result = await db.$queryRaw`SELECT id, title FROM 'Post'`;
-
-  if (!result) {
-    return [];
-  }
-
-  return result as unknown as BlogPostType[];
-}
-
 export async function BlogOverviewScreen() {
-  const blogPosts = await getBlogPosts();
+  const blogPosts: BlogPostType[] =
+    (await getPosts()) as unknown as BlogPostType[];
 
   if (!blogPosts) notFound();
 
   return (
     <ul>
-      {blogPosts.map((blogPost) => (
+      {blogPosts.map((blogPost: BlogPostType) => (
         <li key={blogPost.id}>
           <a href={`/blog/${blogPost.id}`}>{blogPost.title}</a>
         </li>

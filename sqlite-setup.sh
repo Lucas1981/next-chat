@@ -20,3 +20,6 @@ echo "SELECT 1;" | npx prisma db execute --stdin
 
 # Start Studio with an absolute URL that overrides the config. We need the file://.
 npx prisma studio --url "file:///Users/[user]/path/to/repo/dev.db"
+
+# Whenever prisma/schema.prisma changes, run:
+# npx prisma generate
