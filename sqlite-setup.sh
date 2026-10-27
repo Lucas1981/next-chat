@@ -13,3 +13,10 @@ npx prisma migrate dev --name init
 
 # Writes the client to ./lib/generated/prisma.
 npx prisma generate
+
+# Test connection
+# Should output "Script executed successfully."
+echo "SELECT 1;" | npx prisma db execute --stdin
+
+# Start Studio with an absolute URL that overrides the config. We need the file://.
+npx prisma studio --url "file:///Users/[user]/path/to/repo/dev.db"
