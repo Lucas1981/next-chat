@@ -1,5 +1,6 @@
 import axios from "axios";
 import { logInfo, logError } from "@/lib/logger";
+import { cacheLife } from "next/cache";
 
 export type OMDBResponse = {
   imdbID: string;
@@ -9,8 +10,13 @@ export type OMDBResponse = {
 
 export const getMovieDetailsById = async (
   imdbID: string,
-  plotType = "long",
+  plotType = "full",
 ): Promise<OMDBResponse | null> => {
+  "use cache";
+  cacheLife("hours");
+
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   if (!imdbID) {
     return null;
   }
@@ -34,9 +40,9 @@ export const getMovieDetailsById = async (
       return null;
     }
 
-    console.log(
-      `Full data retrieved for movie ${data?.Title}: ${JSON.stringify(data)}`,
-    );
+    // console.log(
+    //   `Full data retrieved for movie ${data?.Title}: ${JSON.stringify(data)}`,
+    // );
 
     return data;
   } catch (e) {

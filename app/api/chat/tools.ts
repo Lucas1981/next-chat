@@ -1,5 +1,5 @@
 import type OpenAI from "openai";
-import { getPlotByTitle } from "./omdb";
+import { getPlotByTitle } from "@/lib/omdb";
 
 export const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
